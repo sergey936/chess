@@ -1,13 +1,13 @@
 use crate::logic::board::builders::base_builder::BoardBuilder;
-use crate::logic::entities::board::{Board, Position, Rank, File};
+use crate::logic::entities::board::Board;
 use crate::logic::entities::piece::{Piece, PieceColor, PieceType};
-
+use crate::logic::entities::position::{File, Position, Rank};
 
 pub struct ClassicChessBoardBuilder;
 
 impl BoardBuilder for ClassicChessBoardBuilder {
     fn new(&self) -> Board {
-        let mut board = Board::empty();
+        let mut board = Board::create_empty_board();
 
         let back_line = [
             PieceType::Rook,

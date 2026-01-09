@@ -1,8 +1,9 @@
 mod logic;
 
+
 use crate::logic::board::builders::base_builder::BoardBuilder;
 use crate::logic::board::builders::classic_builder::ClassicChessBoardBuilder;
-use crate::logic::entities::board::{File, Position, Rank};
+use crate::logic::entities::position::{File, Position, Rank};
 
 fn main() {
     let mut game_board = ClassicChessBoardBuilder.new();
