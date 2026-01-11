@@ -3,7 +3,7 @@ use crate::logic::entities::position::{Move, Position};
 use crate::logic::move_rules::stepping::calculate_stepping_moves;
 
 pub fn moves(board: &Board, from: Position) -> Vec<Move> {
-    const DELTAS: [(isize, isize); 8] = [
+    const DELTAS: [(i8, i8); 8] = [
         (1,2), (2,1), (-1,2), (-2,1),
         (1,-2), (2,-1), (-1,-2), (-2,-1),
     ];
