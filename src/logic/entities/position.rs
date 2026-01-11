@@ -1,4 +1,6 @@
-#[derive(Copy, Clone, Debug)]
+use std::fmt;
+
+#[derive(Copy, Clone, Debug, PartialEq)]
 pub enum File {A, B, C, D, E, F, G, H}
 
 impl File {
@@ -26,7 +28,7 @@ impl TryFrom<usize> for File {
 }
 
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, PartialEq)]
 pub enum Rank {
     One, Two, Three, Four, Five, Six, Seven, Eight
 }
@@ -55,7 +57,7 @@ impl TryFrom<usize> for Rank {
     }
 }
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Position {
     pub file: File,
     pub rank: Rank,
@@ -67,8 +69,33 @@ impl Position {
     }
 }
 
+impl fmt::Display for Position {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let file = match self.file {
+            File::A => 'a',
+            File::B => 'b',
+            File::C => 'c',
+            File::D => 'd',
+            File::E => 'e',
+            File::F => 'f',
+            File::G => 'g',
+            File::H => 'h',
+        };
 
+        let rank = self.rank.index() + 1; // 0..7 → 1..8
+
+        write!(f, "{}{}", file, rank)
+    }
+}
+
+#[derive(Copy, Clone, Debug)]
 pub struct Move {
     pub from: Position,
     pub to: Position,
+}
+
+impl fmt::Display for Move {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} → {}", self.from, self.to)
+    }
 }

@@ -51,7 +51,7 @@ impl Board {
             }
         };
 
-        let square = self.squares[to_rank][to_file].take().unwrap();
+        let square = self.squares[from_rank][from_file].take().unwrap();
 
         self.squares[to_rank][to_file] = Some(Square {
             piece: square.piece,

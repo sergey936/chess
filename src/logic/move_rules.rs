@@ -1,3 +1,4 @@
 pub mod legal_moves;
-pub mod piece_rules;
-pub mod sliding;
+mod piece_rules;
+mod sliding;
+mod stepping;

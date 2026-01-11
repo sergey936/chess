@@ -6,7 +6,7 @@ use crate::logic::entities::position::{File, Position, Rank};
 pub struct ClassicChessBoardBuilder;
 
 impl BoardBuilder for ClassicChessBoardBuilder {
-    fn new(&self) -> Board {
+    fn build(&self) -> Board {
         let mut board = Board::create_empty_board();
 
         let back_line = [
