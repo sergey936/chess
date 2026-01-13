@@ -171,4 +171,44 @@ mod test {
             assert!(targets.contains(&Position::new(file, rank)));
         }
     }
+    #[test]
+    fn test_calculate_stepping_moves_jump_over_blocking_pieces() {
+        let mut board = Board::create_empty_board();
+        let from = Position::new(File::E, Rank::Five);
+        let color = PieceColor::White;
+        board.add_piece(Piece::new(PieceType::King, color), from);
+
+        // Полностью окружаем фигуру своими пешками
+        for (file, rank) in [
+            (File::D, Rank::Four), (File::D, Rank::Five), (File::D, Rank::Six),
+            (File::E, Rank::Four),                   (File::E, Rank::Six),
+            (File::F, Rank::Four), (File::F, Rank::Five), (File::F, Rank::Six),
+        ] {
+            board.add_piece(Piece::new(PieceType::Pawn, color), Position::new(file, rank));
+        }
+
+        // Дельты с шагом 2 — должны "перепрыгивать" блокирующие фигуры
+        let jumping_deltas = [
+            (2, 1), (2, -1), (-2, 1), (-2, -1),
+            (1, 2), (1, -2), (-1, 2), (-1, -2),
+        ];
+
+        let moves = calculate_stepping_moves(&board, from, &jumping_deltas);
+        let targets = get_targets_from_moves(moves);
+
+        let expected_positions = [
+            (File::C, Rank::Four), (File::C, Rank::Six),
+            (File::D, Rank::Three), (File::D, Rank::Seven),
+            (File::F, Rank::Three), (File::F, Rank::Seven),
+            (File::G, Rank::Four), (File::G, Rank::Six),
+        ];
+
+        assert_eq!(targets.len(), expected_positions.len());
+        for (file, rank) in expected_positions {
+            assert!(targets.contains(&Position::new(file, rank)));
+        }
+
+        assert!(!targets.contains(&from));
+    }
+
 }
