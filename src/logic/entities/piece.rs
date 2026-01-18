@@ -1,4 +1,4 @@
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, PartialEq)]
 pub enum PieceType {
     King,
     Queen,
@@ -8,7 +8,7 @@ pub enum PieceType {
     Pawn,
 }
 
-#[derive(Copy, Clone, PartialEq)]
+#[derive(Copy, Clone, PartialEq, Debug)]
 pub enum PieceColor {
     White,
     Black,
