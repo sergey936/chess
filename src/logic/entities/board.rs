@@ -1,3 +1,4 @@
+use std::any::Any;
 use crate::logic::entities::piece::Piece;
 use crate::logic::entities::position::Position;
 
@@ -51,7 +52,8 @@ impl Board {
             }
         };
 
-        let square = self.squares[from_rank][from_file].take().unwrap();
+        let mut square = self.squares[from_rank][from_file].take().unwrap();
+        square.piece.has_moved = true;
 
         self.squares[to_rank][to_file] = Some(Square {
             piece: square.piece,
